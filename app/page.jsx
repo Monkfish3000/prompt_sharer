@@ -1,3 +1,5 @@
+import Feed from '@components/Feed';
+
 const Home = () => {
   return (
     <section className="w-full flex-center flex-col">
@@ -11,7 +13,7 @@ const Home = () => {
         your favourite AI prompts all in once place.{' '}
       </p>
 
-      {/* Feed component */}
+      <Feed />
     </section>
   );
 };
