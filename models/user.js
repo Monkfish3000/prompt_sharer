@@ -10,7 +10,7 @@ const UserSchema = new Schema({
     type: String,
     required: [true, 'Username is required'],
     match: [
-      /^[A-Za-z][A-Za-z0-9_]{4,29}$/,
+      /^*$/,
       'Username not valid. Username should contain between 8 to 20 letters, and be a unique username.',
     ],
   },
@@ -18,6 +18,8 @@ const UserSchema = new Schema({
     type: String,
   },
 });
+
+// ^[A-Za-z][A-Za-z0-9_]{4,29}$
 
 const User = models.User || model('User', UserSchema);
 
