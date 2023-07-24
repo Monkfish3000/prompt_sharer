@@ -48,5 +48,11 @@ export const DELETE = async (req, { params }) => {
   const { prompt } = await req.json();
   try {
     await connectToDB();
-  } catch (error) {}
+
+    await Prompt.findByIdAndRemove(params.id);
+
+    return new Response('Prompt was successfully deleted', { status: 200 });
+  } catch (error) {
+    return new Response('Failed to delete prompt', { status: 500 });
+  }
 };
