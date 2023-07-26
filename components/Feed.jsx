@@ -18,7 +18,17 @@ const Feed = () => {
   const [searchText, setSearchText] = useState('');
   const [posts, setPosts] = useState([]);
 
-  const handleSearchChange = () => {};
+  const handleSearchChange = (event) => {
+    const userSearch = event.target.value;
+    setSearchText(userSearch);
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    console.log(posts);
+    posts.filter((post) => console.log(post.prompt));
+    setSearchText('');
+  };
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -32,7 +42,10 @@ const Feed = () => {
 
   return (
     <section className="feed">
-      <form className="relative w-full flex-center">
+      <form
+        onSubmit={handleSearchSubmit}
+        className="relative w-full flex-center"
+      >
         <input
           type="text"
           placeholder="Search for a tag or username"
