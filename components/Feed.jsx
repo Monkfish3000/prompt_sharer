@@ -18,7 +18,13 @@ const Feed = () => {
   const [searchText, setSearchText] = useState('');
   const [posts, setPosts] = useState([]);
 
-  const handleSearchChange = () => {};
+  const handleSearchChange = (event) => {
+    const userSearch = event.target.value;
+
+    setSearchText(userSearch);
+
+    console.log(event.target.value);
+  };
 
   useEffect(() => {
     const fetchPosts = async () => {
