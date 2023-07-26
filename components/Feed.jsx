@@ -25,6 +25,8 @@ const Feed = () => {
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
+    console.log(posts);
+    posts.filter((post) => console.log(post.prompt));
     setSearchText('');
   };
 
