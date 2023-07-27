@@ -32,11 +32,11 @@ const Feed = () => {
     );
 
     const filteredTags = posts.filter((post) => post.tag.includes(searchText));
-    // console.log(filteredTags);
 
-    // console.log(filteredPosts);
     setSearchText('');
-    setPosts([...filteredPosts, ...filteredTags]);
+    const filteredTagsAndPosts = new Set([...filteredPosts, ...filteredTags]);
+
+    setPosts([...filteredTagsAndPosts]);
   };
 
   useEffect(() => {
@@ -48,6 +48,10 @@ const Feed = () => {
     };
     fetchPosts();
   }, []);
+
+  // useEffect(() => {
+  //   console.log('posts have changed!');
+  // }, [posts]);
 
   return (
     <section className="feed">
