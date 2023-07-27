@@ -16,12 +16,14 @@ const PromptCardList = ({ data, handleTagClick }) => {
 
 const Feed = () => {
   const [searchText, setSearchText] = useState('');
+  const [filterTerm, setFilterTerm] = useState('');
   const [posts, setPosts] = useState([]);
   const [filteredPosts, setFilteredPosts] = useState(false);
 
   const handleSearchChange = (event) => {
     const userSearch = event.target.value;
     setSearchText(userSearch);
+    setFilterTerm(userSearch);
   };
 
   const handleSearchSubmit = (event) => {
@@ -71,7 +73,7 @@ const Feed = () => {
             className="search_input peer"
           />
           {filteredPosts && (
-            <button className="filter_btn">Clear filter</button>
+            <button className="filter_btn">Clear filter: {filterTerm}</button>
           )}
         </div>
       </form>
