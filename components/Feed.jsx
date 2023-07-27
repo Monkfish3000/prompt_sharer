@@ -25,15 +25,18 @@ const Feed = () => {
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
-    // console.log(searchText + ' ' + posts);
+    // console.log(posts);
 
     const filteredPosts = posts.filter((post) =>
       post.prompt.includes(searchText)
     );
 
+    const filteredTags = posts.filter((post) => post.tag.includes(searchText));
+    // console.log(filteredTags);
+
     // console.log(filteredPosts);
     setSearchText('');
-    setPosts(filteredPosts);
+    setPosts([...filteredPosts, ...filteredTags]);
   };
 
   useEffect(() => {
