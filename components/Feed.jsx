@@ -16,24 +16,36 @@ const PromptCardList = ({ data, handleTagClick }) => {
 
 const Feed = () => {
   const [searchText, setSearchText] = useState('');
+  const [filterTerm, setFilterTerm] = useState('');
   const [posts, setPosts] = useState([]);
+  const [filteredPosts, setFilteredPosts] = useState(false);
 
   const handleSearchChange = (event) => {
     const userSearch = event.target.value;
     setSearchText(userSearch);
+    setFilterTerm(userSearch);
   };
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
-    // console.log(searchText + ' ' + posts);
+    // console.log(posts);
 
     const filteredPosts = posts.filter((post) =>
       post.prompt.includes(searchText)
     );
 
-    // console.log(filteredPosts);
+    const filteredTags = posts.filter((post) => post.tag.includes(searchText));
+
     setSearchText('');
-    setPosts(filteredPosts);
+    const filteredTagsAndPosts = new Set([...filteredPosts, ...filteredTags]);
+
+    setPosts([...filteredTagsAndPosts]);
+    setFilteredPosts(true);
+  };
+
+  const handleTagClick = (tag) => {
+    const filteredTags = posts.filter((post) => post.tag.includes(tag));
+    setPosts([...filteredTags]);
   };
 
   useEffect(() => {
@@ -46,23 +58,32 @@ const Feed = () => {
     fetchPosts();
   }, []);
 
+  // useEffect(() => {
+  //   console.log('posts have changed!');
+  // }, [posts]);
+
   return (
     <section className="feed">
       <form
         onSubmit={handleSearchSubmit}
         className="relative w-full flex-center"
       >
-        <input
-          type="text"
-          placeholder="Search for a tag or username"
-          value={searchText}
-          onChange={handleSearchChange}
-          required
-          className="search_input peer"
-        />
+        <div className="w-full block">
+          <input
+            type="text"
+            placeholder="Search for a tag or username"
+            value={searchText}
+            onChange={handleSearchChange}
+            required
+            className="search_input peer"
+          />
+          {filteredPosts && (
+            <button className="filter_btn">Clear filter: {filterTerm}</button>
+          )}
+        </div>
       </form>
 
-      <PromptCardList data={posts} handleTagClick={() => {}} />
+      <PromptCardList data={posts} handleTagClick={handleTagClick} />
     </section>
   );
 };
