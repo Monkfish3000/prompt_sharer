@@ -48,6 +48,18 @@ const Feed = () => {
     setPosts([...filteredTags]);
   };
 
+  const handleClearFilter = () => {
+    const fetchPosts = async () => {
+      const response = await fetch('/api/prompt');
+      const data = await response.json();
+
+      setPosts(data);
+    };
+    fetchPosts();
+    setFilterTerm(null);
+    setFilteredPosts(false);
+  };
+
   useEffect(() => {
     const fetchPosts = async () => {
       const response = await fetch('/api/prompt');
@@ -78,7 +90,9 @@ const Feed = () => {
             className="search_input peer"
           />
           {filteredPosts && (
-            <button className="filter_btn">Clear filter: {filterTerm}</button>
+            <button onClick={handleClearFilter} className="filter_btn">
+              Clear filter: {filterTerm}
+            </button>
           )}
         </div>
       </form>
